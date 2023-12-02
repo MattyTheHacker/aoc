@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Calendar;
 
 
 public class Main {
@@ -13,7 +14,14 @@ public class Main {
     private static final Dotenv dotenv = Dotenv.load();
     private static final String cookie = dotenv.get("SESSION");
 
+    // What is todays date? (1-25) if after 5am, use today, if before 5am, use yesterday
+    private static final Calendar cal = Calendar.getInstance();
+    private static final int day = cal.get(Calendar.DAY_OF_MONTH);
+    private static final int hour = cal.get(Calendar.HOUR_OF_DAY);
+    private static final int currentChallenge = hour >= 5 ? day : day - 1;
+
     private static void getInput(int dayString) {
+        System.out.println("Getting input for challenge " + dayString);
         // TODO: use the day to query the website for input data for the specific day
         String day = String.valueOf(dayString);
         try {
@@ -50,12 +58,22 @@ public class Main {
     }
 
     private static void getAllInputs() {
-        for (int i = 1; i <= 3; i++) {
+        for (int i = 1; i <= currentChallenge; i++) {
             getInput(i);
+        }
+    }
+
+    private static void runAllDays() {
+        try {
+            Day1.main(null);
+            Day2.main(null);
+    } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     public static void main(String[] args) {
         getAllInputs();
+        runAllDays();
     }
 }

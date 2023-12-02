@@ -45,7 +45,7 @@ public class Day2 {
         }
     }
 
-    private static void part2(){
+    private static void part2() {
         int power = 0;
         try (BufferedReader reader = Files.newBufferedReader(inputPath)) {
             String line;

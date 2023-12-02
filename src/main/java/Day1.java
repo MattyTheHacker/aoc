@@ -2,7 +2,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,7 +10,7 @@ import java.util.regex.Pattern;
 
 public class Day1 {
 
-    private static Map<String, Integer> wordsToNumbers(){
+    private static Map<String, Integer> wordsToNumbers() {
         Map<String, Integer> wordsToNumbers = new HashMap<>();
         wordsToNumbers.put("zero", 0);
         wordsToNumbers.put("one", 1);
@@ -30,7 +29,7 @@ public class Day1 {
         return wordsToNumbers;
     }
 
-    private static void partOne(){
+    private static void partOne() {
         // read in a file
         Path filePath = Path.of("src/main/resources/day1.txt");
         try (BufferedReader reader = Files.newBufferedReader(filePath)) {
