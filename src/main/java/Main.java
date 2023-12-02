@@ -28,9 +28,10 @@ public class Main {
                 StringBuilder sb = new StringBuilder();
                 while ((input = br.readLine()) != null) {
                     sb.append(input);
-                    sb.append("\n");
+                    sb.append("\r\n");
                 }
-                sb.deleteCharAt(sb.length() - 1); // remove last newline (not needed)
+                sb.deleteCharAt(sb.length() - 1);
+                sb.deleteCharAt(sb.length() - 1);
                 String data = sb.toString();
 
                 // write data to file
