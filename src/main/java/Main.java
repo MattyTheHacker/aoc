@@ -22,7 +22,6 @@ public class Main {
 
     private static void getInput(int dayString) {
         System.out.println("Getting input for challenge " + dayString);
-        // TODO: use the day to query the website for input data for the specific day
         String day = String.valueOf(dayString);
         try {
             URL url = new URL("https://adventofcode.com/2023/day/" + day + "/input");
@@ -67,6 +66,8 @@ public class Main {
         try {
             Day1.main(null);
             Day2.main(null);
+            Day3.main(null);
+            Day4.main(null);
     } catch (Exception e) {
             e.printStackTrace();
         }
