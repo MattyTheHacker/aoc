@@ -8,7 +8,7 @@ public class Day5 {
 
     private static final Path inputPath = Paths.get("src/main/resources/day5.txt");
 
-    private static final HashMap<Integer, Seed> seeds = new HashMap<>();
+    private static final HashMap<Long, Seed> seeds = new HashMap<>();
 
     private static void getSeedsFromFile() {
         try (BufferedReader reader = Files.newBufferedReader(inputPath)) {
@@ -19,8 +19,8 @@ public class Day5 {
                     String seedsLine = line.split(":")[1].trim();
                     String[] seedIDs = seedsLine.split(" ");
                     for (String seedID : seedIDs) {
-                        int id = Integer.parseInt(seedID);
-                        seeds.put(Integer.parseInt(seedID), new Seed(id));
+                        long id = Long.parseLong(seedID);
+                        seeds.put(id, new Seed(id));
                     }
                 } else if (line.contains("seed-to-soil map:")) {
                     while ((line = reader.readLine()) != null) {
@@ -32,19 +32,21 @@ public class Day5 {
                         String[] seedToSoil = line.split(" ");
                         int numIDs = Integer.parseInt(seedToSoil[2]);
 
-                        int firstSeed = Integer.parseInt(seedToSoil[1]);
-                        int firstSoil = Integer.parseInt(seedToSoil[0]);
+                        long firstSeed = Long.parseLong(seedToSoil[1]);
+                        long firstSoil = Long.parseLong(seedToSoil[0]);
 
                         for (int i = 0; i < numIDs; i++) {
 
                             if (seeds.containsKey(firstSeed)) {
                                 seeds.get(firstSeed).setSoil(firstSoil);
+                                System.out.println("Set seed " + firstSeed + " to soil " + firstSoil);
                             }
 
                             firstSeed++;
                             firstSoil++;
                         }
                     }
+                    System.out.println("Completed seed-to-soil map");
                 } else if (line.contains("soil-to-fertilizer map:")) {
                     while ((line = reader.readLine()) != null) {
                         if (line.equals("")) {
@@ -55,13 +57,14 @@ public class Day5 {
                         String[] soilToFert = line.split(" ");
                         int numToGo = Integer.parseInt(soilToFert[2]);
 
-                        int firstSoil = Integer.parseInt(soilToFert[1]);
-                        int firstFert = Integer.parseInt(soilToFert[0]);
+                        long firstSoil = Long.parseLong(soilToFert[1]);
+                        long firstFert = Long.parseLong(soilToFert[0]);
 
                         for (int i = 0; i < numToGo; i++) {
                             for (Seed seed : seeds.values()) {
                                 if (seed.getSoil() == firstSoil) {
                                     seed.setFertilizer(firstFert);
+                                    System.out.println("Set seed " + seed.getId() + " to fertilizer " + firstFert);
                                 }
                             }
 
@@ -74,6 +77,7 @@ public class Day5 {
                             }
                         }
                     }
+                    System.out.println("Completed soil-to-fertilizer map");
                 } else if (line.contains("fertilizer-to-water map:")) {
                     while ((line = reader.readLine()) != null) {
                         if (line.equals("")) {
@@ -84,13 +88,14 @@ public class Day5 {
                         String[] soilToFert = line.split(" ");
                         int numToGo = Integer.parseInt(soilToFert[2]);
 
-                        int firstFert = Integer.parseInt(soilToFert[1]);
-                        int firstWater = Integer.parseInt(soilToFert[0]);
+                        long firstFert = Long.parseLong(soilToFert[1]);
+                        long firstWater = Long.parseLong(soilToFert[0]);
 
                         for (int i = 0; i < numToGo; i++) {
                             for (Seed seed : seeds.values()) {
                                 if (seed.getFertilizer() == firstFert) {
                                     seed.setWater(firstWater);
+                                    System.out.println("Set seed " + seed.getId() + " to water " + firstWater);
                                 }
                             }
 
@@ -104,6 +109,7 @@ public class Day5 {
                             }
                         }
                     }
+                    System.out.println("Completed fertilizer-to-water map");
                 } else if (line.contains("water-to-light map:")) {
                     while ((line = reader.readLine()) != null) {
                         if (line.equals("")) {
@@ -114,13 +120,14 @@ public class Day5 {
                         String[] soilToFert = line.split(" ");
                         int numToGo = Integer.parseInt(soilToFert[2]);
 
-                        int firstWater = Integer.parseInt(soilToFert[1]);
-                        int firstLight = Integer.parseInt(soilToFert[0]);
+                        long firstWater = Long.parseLong(soilToFert[1]);
+                        long firstLight = Long.parseLong(soilToFert[0]);
 
                         for (int i = 0; i < numToGo; i++) {
                             for (Seed seed : seeds.values()) {
                                 if (seed.getWater() == firstWater) {
                                     seed.setLight(firstLight);
+                                    System.out.println("Set seed " + seed.getId() + " to light " + firstLight);
                                 }
                             }
 
@@ -134,6 +141,7 @@ public class Day5 {
                             }
                         }
                     }
+                    System.out.println("Completed water-to-light map");
                 } else if (line.contains("light-to-temperature map:")) {
                     while ((line = reader.readLine()) != null) {
                         if (line.equals("")) {
@@ -144,13 +152,14 @@ public class Day5 {
                         String[] soilToFert = line.split(" ");
                         int numToGo = Integer.parseInt(soilToFert[2]);
 
-                        int firstLight = Integer.parseInt(soilToFert[1]);
-                        int firstTemp = Integer.parseInt(soilToFert[0]);
+                        long firstLight = Long.parseLong(soilToFert[1]);
+                        long firstTemp = Long.parseLong(soilToFert[0]);
 
                         for (int i = 0; i < numToGo; i++) {
                             for (Seed seed : seeds.values()) {
                                 if (seed.getLight() == firstLight) {
                                     seed.setTemp(firstTemp);
+                                    System.out.println("Set seed " + seed.getId() + " to temp " + firstTemp);
                                 }
                             }
 
@@ -164,6 +173,7 @@ public class Day5 {
                             }
                         }
                     }
+                    System.out.println("Completed light-to-temperature map");
                 } else if (line.contains("temperature-to-humidity map:")) {
                     while ((line = reader.readLine()) != null) {
                         if (line.equals("")) {
@@ -174,13 +184,14 @@ public class Day5 {
                         String[] soilToFert = line.split(" ");
                         int numToGo = Integer.parseInt(soilToFert[2]);
 
-                        int firstTemp = Integer.parseInt(soilToFert[1]);
-                        int firstHumidity = Integer.parseInt(soilToFert[0]);
+                        long firstTemp = Long.parseLong(soilToFert[1]);
+                        long firstHumidity = Long.parseLong(soilToFert[0]);
 
                         for (int i = 0; i < numToGo; i++) {
                             for (Seed seed : seeds.values()) {
                                 if (seed.getTemp() == firstTemp) {
                                     seed.setHumidity(firstHumidity);
+                                    System.out.println("Set seed " + seed.getId() + " to humidity " + firstHumidity);
                                 }
                             }
 
@@ -194,6 +205,7 @@ public class Day5 {
                             }
                         }
                     }
+                    System.out.println("Completed temperature-to-humidity map");
                 } else if (line.contains("humidity-to-location map:")) {
                     while ((line = reader.readLine()) != null) {
                         if (line.equals("")) {
@@ -204,13 +216,14 @@ public class Day5 {
                         String[] soilToFert = line.split(" ");
                         int numToGo = Integer.parseInt(soilToFert[2]);
 
-                        int firstHumidity = Integer.parseInt(soilToFert[1]);
-                        int firstLoc = Integer.parseInt(soilToFert[0]);
+                        long firstHumidity = Long.parseLong(soilToFert[1]);
+                        long firstLoc = Long.parseLong(soilToFert[0]);
 
                         for (int i = 0; i < numToGo; i++) {
                             for (Seed seed : seeds.values()) {
                                 if (seed.getHumidity() == firstHumidity) {
                                     seed.setLoc(firstLoc);
+                                    System.out.println("Set seed " + seed.getId() + " to location " + firstLoc);
                                 }
                             }
 
@@ -223,6 +236,7 @@ public class Day5 {
                                 seed.setLoc(seed.getHumidity());
                             }
                         }
+                        System.out.println("Completed humidity-to-location map");
                     }
                 }
             }
@@ -232,15 +246,21 @@ public class Day5 {
     }
 
     private static void part1() {
+        // measure time taken
+        long startTime = System.nanoTime();
         getSeedsFromFile();
-        int lowest = Integer.MAX_VALUE;
+        long lowest = Integer.MAX_VALUE;
         for (Seed seed : seeds.values()) {
             if (seed.getLoc() < lowest) {
                 lowest = seed.getLoc();
             }
         }
 
+        long endTime = System.nanoTime();
+        long timeElapsed = endTime - startTime;
+
         System.out.println("Lowest location ID: " + lowest);
+        System.out.println("Execution time in milliseconds: " + timeElapsed / 1000000);
     }
 
     public static void main(String[] args) {
@@ -251,80 +271,80 @@ public class Day5 {
 
     private static class Seed {
 
-        private int id, soil, fertilizer, water, light, temp, humidity, loc;
+        private long id, soil, fertilizer, water, light, temp, humidity, loc;
 
-        Seed(int id) {
+        Seed(long id) {
             this.id = id;
             this.soil = id;
         }
 
-        public int getId() {
+        public long getId() {
             return id;
         }
 
-        public void setId(int id) {
+        public void setId(long id) {
             this.id = id;
         }
 
-        public int getSoil() {
+        public long getSoil() {
             return soil;
         }
 
-        public void setSoil(int soil) {
+        public void setSoil(long soil) {
             this.soil = soil;
             this.fertilizer = soil;
         }
 
-        public int getFertilizer() {
+        public long getFertilizer() {
             return fertilizer;
         }
 
-        public void setFertilizer(int fertilizer) {
+        public void setFertilizer(long fertilizer) {
             this.fertilizer = fertilizer;
             this.water = fertilizer;
         }
 
-        public int getWater() {
+        public long getWater() {
             return water;
         }
 
-        public void setWater(int water) {
+        public void setWater(long water) {
             this.water = water;
             this.light = water;
         }
 
-        public int getLight() {
+        public long getLight() {
             return light;
         }
 
-        public void setLight(int light) {
+        public void setLight(long light) {
             this.light = light;
             this.temp = light;
         }
 
-        public int getTemp() {
+        public long getTemp() {
             return temp;
         }
 
-        public void setTemp(int temp) {
+        public void setTemp(long temp) {
             this.temp = temp;
             this.humidity = temp;
         }
 
-        public int getHumidity() {
+        public long getHumidity() {
             return humidity;
         }
 
-        public void setHumidity(int humidity) {
+        public void setHumidity(long humidity) {
             this.humidity = humidity;
             this.loc = humidity;
         }
 
-        public int getLoc() {
+        public long getLoc() {
             return loc;
         }
 
-        public void setLoc(int loc) {
+        public void setLoc(long loc) {
             this.loc = loc;
         }
 
