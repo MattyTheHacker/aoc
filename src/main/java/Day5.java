@@ -236,8 +236,8 @@ public class Day5 {
                                 seed.setLoc(seed.getHumidity());
                             }
                         }
-                        System.out.println("Completed humidity-to-location map");
                     }
+                    System.out.println("Completed humidity-to-location map");
                 }
             }
         } catch (Exception e) {
